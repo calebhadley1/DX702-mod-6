@@ -4,12 +4,14 @@ submission if it is longer than that.
 Homework reflection 1
 
 1. In Coding Quiz 1, you are asked to find the distance of the farthest match in a set.  Is this farthest match distance too far to be a meaningful match?  How can you decide this?
+- The distance of the farthest match in the set was 0.210217, where the Z values were 0.988374 and 0.778157. By calculating summary statistics about the distances, we can determine how different the largest one is. The mean distance is 0.050, the median is 0.0133, the standard deviation is 0.0684. Therefore the max is over 2 standard deviations above the mean. Addiitonally, calculating the IQR we see it is 0.053. We could trim matches beyond a threshold outside IQR since they can be considered outliers. At a threshold of 2, we could remove any distances beyonhd 0.106.
 
 2. In Coding Quiz 1, there are two approaches to matching: 
 (A) Picking the best match X = 0 corresponding to each X = 1 using Z values.
 (B) Using radius_neighbors to pick all matches X = 0 within a distance of 0.2 of each X = 1.
 
 Invent your own type of matching similar to 1 and 2 (or look one up on the internet), which has a different way to pick the matches in X = 0.  Clearly explain the approach you invented or found.
+- One methodology would be to manually create labels for a subset of the data of correct matches. Then, a model could be trained on those ground truth matches and inference can be performed on all new combinations. A model like logisitic regression could be used to output a score representing how strong a match is, and then we can sort/rank all possible matches for a given sample and pick the highest score.
 
 Homework reflection 2
 
