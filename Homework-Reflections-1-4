@@ -4,7 +4,7 @@ submission if it is longer than that.
 Homework reflection 1
 
 1. In Coding Quiz 1, you are asked to find the distance of the farthest match in a set.  Is this farthest match distance too far to be a meaningful match?  How can you decide this?
-- The distance of the farthest match in the set was 0.210217, where the Z values were 0.988374 and 0.778157. By calculating summary statistics about the distances, we can determine how different the largest one is. The mean distance is 0.050, the median is 0.0133, the standard deviation is 0.0684. Therefore the max is over 2 standard deviations above the mean. Addiitonally, calculating the IQR we see it is 0.053. We could trim matches beyond a threshold outside IQR since they can be considered outliers. At a threshold of 2, we could remove any distances beyonhd 0.106.
+- The distance of the farthest match in the set was 0.210217, where the Z values were 0.988374 and 0.778157. By calculating summary statistics about the distances, we can determine how different the largest one is. The mean distance is 0.050, the median is 0.0133, the standard deviation is 0.0684. Therefore the max is over 2 standard deviations above the mean. Addiitonally, calculating the IQR we see it is 0.053. We could trim matches beyond a threshold outside IQR since they can be considered outliers. At a threshold of 2, we could remove any distances beyonhd 0.106. Based on these metrics, the distance of the farthest match in the set is too far to be a meaningful match.
 
 2. In Coding Quiz 1, there are two approaches to matching: 
 (A) Picking the best match X = 0 corresponding to each X = 1 using Z values.
@@ -16,8 +16,10 @@ Invent your own type of matching similar to 1 and 2 (or look one up on the inter
 Homework reflection 2
 
 1. Invent an example situation that would use fixed effects.
+- An organizations rolls out generative AI tooling to software developers to increase productivity. Each developer produces code at different rates due to natural ability, experience, and product domain. We can use fixed effects to determine the effect of the gen AI tooling on productivity by controlling for the differences in individual developers.
 
 2. Write a Python program that performs a bootstrap simulation to find the variance in the mean of the Pareto distribution when different samples are taken.  Explain what you had to do for this.  As you make the full sample size bigger (for the same distribution), what happens to the variance of the mean of the samples?  Does it stay about the same, get smaller, or get bigger?
+- First I setup the pareto distribution using the pareto method in numpy.random (Using the parameters provided in the example on numpy docs [a=2, size=1_000, mode=2]). Next I setup a bootstrap loop to sample with replacement from the pareto distribution and calculated the mean of the sample, saving it for later. Finally, I calculate the variance of the means. I performed this for a few sample sizes (1_000, 5_000, 10_000) to see the variance trend. I found that the variance decreases, trending towards 0.
 
 Homework reflection 3
 
