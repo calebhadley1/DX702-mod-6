@@ -24,8 +24,10 @@ Homework reflection 2
 Homework reflection 3
 
 1. In the event study in Coding Quiz 3, how would we go about testing for a change in the second derivative as well?
+- In the event study, we first test for a change in the value by looking at the change in the outcome variable from before/after the event. Next, we test the first derivative by determining the change in slope which is essentially the rate of change in the outcome. Finally, to test for a change in the second derivative we take things one step further by testing for change in the slope itself. This will tell us if the slope is increasing or decreasing over time in regards to the event time. To do this we need to add a squared term to the OLS model. Next, I would look at this change by examining the coefficient of the resulting model, and also check the p-value to ensure it is statistically significant.
 
 2. Create your own scenario that illustrates differences-in-differences. Describe the story behind the data and show whether there is a nonzero treatment effect.
+- Stakeholders at a fitness wearables company want to determine the effect after rolling out new AI powered features such as a personalized trainer and workout analysis. Since there could be many things changing at the same time such as overall popularity of fitness wearables, economic changes etc, they want to benchmark the against another competitor who has not rolled out equivalent features. To do so, data scientists performed a differences in differences comparison between their company's key outcomes such as profit and product sentiment against another competitor by analyzing public profit records and online sentiment. By categorizing the treatment group as their users, and the non-treatment group as the competitor, they can determine the before/after treatment statistics and calculate the differences in outcomes.
 
 Homework reflection 4
 
