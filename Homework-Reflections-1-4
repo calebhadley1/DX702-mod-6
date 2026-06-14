@@ -4,22 +4,22 @@ submission if it is longer than that.
 Homework reflection 1
 
 1. In Coding Quiz 1, you are asked to find the distance of the farthest match in a set.  Is this farthest match distance too far to be a meaningful match?  How can you decide this?
-- The distance of the farthest match in the set was 0.210217, where the Z values were 0.988374 and 0.778157. By calculating summary statistics about the distances, we can determine how different the largest one is. The mean distance is 0.050, the median is 0.0133, the standard deviation is 0.0684. Therefore the max is over 2 standard deviations above the mean. Addiitonally, calculating the IQR we see it is 0.053. We could trim matches beyond a threshold outside IQR since they can be considered outliers. At a threshold of 2, we could remove any distances beyonhd 0.106. Based on these metrics, the distance of the farthest match in the set is too far to be a meaningful match.
+- The distance of the farthest match in the set was 0.210217, where the Z values were 0.988374 and 0.778157. By calculating summary statistics about the distances, we can determine how different the largest one is than typical matches. The mean distance is 0.050, the median is 0.0133, and the standard deviation is 0.0684. Therefore the max is over 2 standard deviations above the mean. Additionally, calculating the IQR we see it is 0.053. We could trim matches beyond a threshold outside IQR since they can be considered outliers. At a threshold of 2, we could remove any distances beyond 0.106. Based on these metrics, the distance of the farthest match in the set is too far to be a meaningful match.
 
 2. In Coding Quiz 1, there are two approaches to matching: 
 (A) Picking the best match X = 0 corresponding to each X = 1 using Z values.
 (B) Using radius_neighbors to pick all matches X = 0 within a distance of 0.2 of each X = 1.
 
 Invent your own type of matching similar to 1 and 2 (or look one up on the internet), which has a different way to pick the matches in X = 0.  Clearly explain the approach you invented or found.
-- One methodology would be to manually create labels for a subset of the data of correct matches. Then, a model could be trained on those ground truth matches and inference can be performed on all new combinations. A model like logisitic regression could be used to output a score representing how strong a match is, and then we can sort/rank all possible matches for a given sample and pick the highest score.
+- One matching methodology we can utilize is called Coarsened Exact Matching (CEM). To apply this methodology to our dataset, we first perform "coarsening" by binning the continuous Z values into ranges. Since our Z values fall between 0 and 1, we can try a bin size of 0.01 to start. The first bins would be "0-0.01", "0.01-0.02", "0.02-0.03", etc. Once all Z values are binned, we do exact matching similar to Approach A based on the binned Z values. Next, we apply "pruning"; any bins that do not have a row from X=0 and X=1 are discarded entirely as unmatched bins.
 
 Homework reflection 2
 
 1. Invent an example situation that would use fixed effects.
-- An organizations rolls out generative AI tooling to software developers to increase productivity. Each developer produces code at different rates due to natural ability, experience, and product domain. We can use fixed effects to determine the effect of the gen AI tooling on productivity by controlling for the differences in individual developers.
+- An organization rolls out generative AI tooling to software developers to increase productivity. Each developer produces code at different rates due to natural ability, experience, and product domain. We can use fixed effects to determine the effect of the gen AI tooling on productivity by controlling for the differences in individual developers. In terms of data collection, we would create a dataset containing the developer's employee ID, the time period, the productivity measurement such as lines of code deliered (LinesDelivered), a boolean flag representing if AI tooling was used, and finally a way to handle the difference between developers. Using the approach from Table 16.1 in the reading (https://theeffectbook.net/ch-FixedEffects.html#tab:fixedeffects-within1), we can create a MeanLinesDelivered and WithinLinesDelivered column. Finally, fixed effects regresion can be performed on the dataset
 
 2. Write a Python program that performs a bootstrap simulation to find the variance in the mean of the Pareto distribution when different samples are taken.  Explain what you had to do for this.  As you make the full sample size bigger (for the same distribution), what happens to the variance of the mean of the samples?  Does it stay about the same, get smaller, or get bigger?
-- First I setup the pareto distribution using the pareto method in numpy.random (Using the parameters provided in the example on numpy docs [a=2, size=1_000, mode=2]). Next I setup a bootstrap loop to sample with replacement from the pareto distribution and calculated the mean of the sample, saving it for later. Finally, I calculate the variance of the means. I performed this for a few sample sizes (1_000, 5_000, 10_000) to see the variance trend. I found that the variance decreases, trending towards 0.
+- First I set up the pareto distribution using the pareto method in numpy.random (Using the parameters provided in the example on numpy docs [a=2, size=1_000, mode=2]). Next I set up a bootstrap loop to sample with replacement from the pareto distribution and calculated the mean of the boostrap sample, saving it for later. Finally, I calculate the variance of the bootstrap sample means. I performed this for a few sample sizes (1_000, 5_000, 10_000) to see the variance trend. I found that the variance decreases as the sample size increases, trending towards 0.
 
 Homework reflection 3
 
@@ -27,10 +27,41 @@ Homework reflection 3
 - In the event study, we first test for a change in the value by looking at the change in the outcome variable from before/after the event. Next, we test the first derivative by determining the change in slope which is essentially the rate of change in the outcome. Finally, to test for a change in the second derivative we take things one step further by testing for change in the slope itself. This will tell us if the slope is increasing or decreasing over time in regards to the event time. To do this we need to add a squared term to the OLS model. Next, I would look at this change by examining the coefficient of the resulting model, and also check the p-value to ensure it is statistically significant.
 
 2. Create your own scenario that illustrates differences-in-differences. Describe the story behind the data and show whether there is a nonzero treatment effect.
-- Stakeholders at a fitness wearables company want to determine the effect after rolling out new AI powered features such as a personalized trainer and workout analysis. Since there could be many things changing at the same time such as overall popularity of fitness wearables, economic changes etc, they want to benchmark the against another competitor who has not rolled out equivalent features. To do so, data scientists performed a differences in differences comparison between their company's key outcomes such as profit and product sentiment against another competitor by analyzing public profit records and online sentiment. By categorizing the treatment group as their users, and the non-treatment group as the competitor, they can determine the before/after treatment statistics and calculate the differences in outcomes.
+- Stakeholders at a fitness wearables company want to determine the effect after rolling out new AI powered features such as a personalized trainer and workout analysis. Since there could be many things changing at the same time such as overall popularity of fitness wearables, economic changes etc, they want to benchmark against another competitor who has not rolled out equivalent features. To do so, data scientists performed a differences in differences comparison between their company's key outcomes such as profit and product sentiment against another competitor by analyzing public profit records and online sentiment. By categorizing the treatment group as their users, and the non-treatment group as the competitor, they can determine the before/after treatment statistics and calculate the differences in outcomes.
 
 Homework reflection 4
 
 1. The Coding Quiz gives two options for instrumental variables.  For the second item (dividing the range of W into multiple ranges), explain how you did it, show your code, and discuss any issues you encountered.
+- The below code shows my code for dividing the range of W into multiple ranges and calculating the effect. First, I had to split the dataframe into ranges of W. I initially tried `pd.cut` to do this, but I had an issue with the final effect calculation where it over estimated what I got in the first problem. I think this was because `pd.cut` does not split W into equal groups. So, when we take the mean later on to find the effect, it equally weights each group of W, even when some groups do not have many rows in them. Using `pd.qcut` I was able to resolve that issue. Once we have ranges of W created, I iterate over each group and calculate the effect using the formula provided in the problem statement (Find average y and x given a Z value and take the ratio). Finally, I append the effect for the W range to a list. Once all the ranges have been iterated over I calculate the mean effect of all W ranges.
+
+```
+# Note I tried pd.cut initially but the resulting effect was wrong. I think it is due to qcut makes equally sized ranges. 
+# When we calculate the effect by taking mean there could have been an issue with small ranges having the same effect as large ranges on the result
+# I picked q as 200 pretty arbitrarily based on the histogram by looking at different bin counts
+df["W_range"] = pd.qcut(df["W"], q=200, labels=False) # No labels so that it doesn't becomne a tuple in the df. When we group by it goes by value so no label is needed
+
+ratio_effects = []
+
+for _, w_range_group in df.groupby("W_range"):
+    w_range_z1 = w_range_group[w_range_group["Z"] == 1]
+    w_range_z0 = w_range_group[w_range_group["Z"] == 0]
+
+    # Find the average Y value for Z=1 and Z=0 for a narrow range of W.
+    mean_y_z1 = w_range_z1["Y"].mean()
+    mean_y_z0 = w_range_z0["Y"].mean()
+
+    # Find the average X value for Z=1 and Z=0 for the same narrow range of W.
+    mean_x_z1 = w_range_z1["X"].mean()
+    mean_x_z0 = w_range_z0["X"].mean()
+
+    # Take ratio to find the effect
+    ratio_effects.append(
+        (mean_y_z1 - mean_y_z0) / (mean_x_z1 - mean_x_z0)
+    )
+
+# Average this over all the ranges of W.
+mean_ratio_effect = np.mean(ratio_effects)
+mean_ratio_effect
+```
 
 2. Plot the college outcome (Y) vs. the test score (X) in a small range of test scores around 80. On the plot, compare it with the Y probability predicted by logistic regression. The ground truth Y value is 0 or 1; don't just plot 0 or 1 - that will make it unreadable.  Find some way to make it look better than that.
