@@ -46,10 +46,12 @@ Homework Reflection 6
 1. What is a potential problem with computing the Marginal Treatment Effect simply by comparing each untreated item to its counterfactual and taking the maximum difference?  (Hint: think of statistics here.  Consider that only the most extreme item ends up being used to estimate the MTE.  That's not necessarily a bad thing; the MTE is supposed to come from the untreated item that will produce the maximum effect.  But there is nevertheless a problem.)
 Possible answer: We are likely to find the item with the most extreme difference, which may be high simply due to randomness.
 (Please explain / justify this answer, or give a different one if you can think of one.)
+- Since the MTE is not referenced in the course notes, I will assume its definition as "the effect for individuals at the threshold of participation" based on online references. In contrast to the ATE which measures the overall population level impact, the MTE only measures the effect on certain groups of the population. The problem with taking the maximum difference between the untreated items and their counterfactual is that the MTE only includes the single-most extreme difference. This means that if there is an outlier or a bad observation, the MTE will only encompass that data point. It could make the MTE look higher than it is in reality. 
 
 2. Propose a solution that remedies this problem and write some code that implements your solution.  It's very important here that you clearly explain what your solution will do.
 Possible answer: maybe we could take the 90th percentile of the treatment effect and use it as a proxy for the Marginal Treatment Effect.
 (Either code this answer or choose a different one.)
+- I chose to use the approach like above which uses a 90th percentile. First, I use the output dataframe from Homework 6 Problem 1 where we have a matched dataframe containing each original row from homework_6.1, where a match has been found for each X=0 row. Next, I limit the dataframe to only the rows where X=0 (df_2_x0 variable). Finally I calculate our MTE by taking the differences between each untreated item and its counterfactual. Finally instead of taking the max() I instead use the percentile function to get the 90th percentile. By taking the 90th percentile instead of the maximum distance, there should be less noise in the MTE and it will be closer to the actual MTE.
 
 Homework Reflection 7
 
