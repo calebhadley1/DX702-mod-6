@@ -56,6 +56,7 @@ Possible answer: maybe we could take the 90th percentile of the treatment effect
 Homework Reflection 7
 
 1. Create a linear regression model involving a confounder that is left out of the model.  Show whether the true correlation between $$X$$ and $$Y$$ is overestimated, underestimated, or neither.  Explain in words why this is the case for the given coefficients you have chosen.
+- 
 
 2. Perform a linear regression analysis in which one of the coefficients is zero, e.g.
 
@@ -68,6 +69,7 @@ And compute the p-value of a coefficient - in this case, the coefficient of W.
 If the p-value is less than 0.05, this ordinarily means that we judge the coefficient to be nonzero (incorrectly, in this case.)
 Run the analysis 1000 times and report the best (smallest) p-value.  
 If the p-value is less than 0.05, does this mean the coefficient actually is nonzero?  What is the problem with repeating the analysis?
+- First I used the synthetic dataset created in Homework Reflection 5 Problem 4 shown above. Running the following code to run linear regression with and without the confounder (lightning), we see that the model overestimates, indicating that the true correlation between X and Y is overestimated. I believe the coefficient was overestimated since the lightning decreases both the deer and bear populations. Without the lightning in the model, we assume the bear population decline is correlated with the deer population decline. Essentially, the deer coefficient encompasses both its true effect on the bear feature but also the lightning’s effect.
 
 Homework Reflection 8
 
