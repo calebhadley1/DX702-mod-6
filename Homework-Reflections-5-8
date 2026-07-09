@@ -11,7 +11,13 @@ A negative feedback loop means that one thing increases another while the second
 
 Remember that we are using directed acyclic graphs where two things cannot directly cause each other.
 
+- Added diagram to word doc
+- Directed acyclic graphs cannot have cycles. Therefore we say that the value of Body Temperature at time t=1 causes the value of Sweating at time t=2, and the value of Sweating at time time=1 causes the value of Body Temperature at time t=2.
+
 2. Describe an example of a positive feedback loop.  This means that one things increases another while the second things also increases the first.
+- One example of a positive feedback loop can occur while on a video/audio call. Let’s say you are in a conference room on Zoom with a teammate. Your conference room has a microphone and speaker which are enabled. Your teammate joins the same Zoom meeting on their personal laptop and accidentally enables their microphone. When you speak, it causes a positive feedback loop where the audio quickly distorts into a loud noise. The underlying relationship is
+Microphone Input t→ Speaker Output t+1
+Speaker Output t → Microphone Input t+1
 
 3. Draw a diagram for the following situation:
 
@@ -22,6 +28,9 @@ Deer eat flowers, decreasing their population.
 Write a dataset that simulates this situation.  (Show the code.) Include noise / randomness in all cases.
 
 Identify a backdoor path with one or more confounders for the relationship between deer and flowers.
+
+- Diagram and code added to word doc
+- The confounder is the lightning storm in this case, since it causes both deer and flowers. The backdoor path is Deer ← Lightning Storm → Flowers
 
 4. Draw a diagram for a situation of your own invention.  The diagram should include at least four nodes, one confounder, and one collider.  Be sure that it is acyclic (no loops).  Which node would say is most like a treatment (X)?  Which is most like an outcome (Y)?
 
